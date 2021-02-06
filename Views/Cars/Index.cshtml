@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Cars.Models.Car>
+@{
+    ViewData["Title"] = "Summary";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">Welcome</h1>
+    <p>Take a look on our featured cars.</p>
+</div>
+
+@if (@Model.Any())
+{
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Actions</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col">Model</th>
+        <th scope="col">Assembly date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var car in @Model)
+      {
+      <tr>
+        <td scope="row">
+          <a class="btn-sm btn-primary mr-1"
+            asp-controller="Cars"
+            asp-action="Details"
+            asp-route-id=@car.Id>
+            Details
+          </a>
+
+          <a class="btn-sm btn-info mr-1"
+            asp-controller="Cars"
+            asp-action="Edit"
+            asp-route-id=@car.Id>
+            Edit
+          </a>
+          
+          <a class="btn-sm btn-danger mr-1"
+            asp-controller="Cars"
+            asp-action="Delete"
+            asp-route-id=@car.Id>
+            Delete
+          </a>
+        </td>
+        <td>@car.Manufacturer</td>
+        <td>@car.Model</td>
+        <td>@car.AssemblyDate.ToShortDateString()</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+}
+else
+{
+  <p>There are not cars registered yet.</p>
+}
